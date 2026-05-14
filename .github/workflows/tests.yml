@@ -99,8 +99,7 @@ jobs:
           if [[ "${{ runner.os }}" == "Linux" ]]
           then
             LC_ALL=C LANG=C sed -i 's!uses_from_macos "curl"!# uses_from_macos "curl"!g' "$(brew --taps)"/homebrew/homebrew-core/Formula/r/rust.rb
-          else
-          if [[ "${{ runner.os }}" == "macOS" && "${{ runner.arch }}" == "X64" ]]
+          elif [[ "${{ runner.os }}" == "macOS" && "${{ runner.arch }}" == "X64" ]]
           then
             cp /Users/runner/work/homebrew-brews2/homebrew-brews2/.github/workflows/files/tb_formulae "$(brew --prefix)/Homebrew/Library/Homebrew/test_bot/formulae.rb"
           fi
