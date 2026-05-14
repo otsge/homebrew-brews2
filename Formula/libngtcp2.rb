@@ -6,6 +6,16 @@ class Libngtcp2 < Formula
   sha256 "dfd2c68bd64b89847c611425b9487105c46e8447b5c21e6aeb00642c8fbe2ca8"
   license "MIT"
 
+  bottle do
+    root_url "https://github.com/otsge/homebrew-brews2/releases/download/libngtcp2-1.22.1"
+    sha256 cellar: :any,                 arm64_tahoe:   "38ebdfbdade1d7b34bfb94aa5f536a797860cd60d0385b7b50d2f20a55137926"
+    sha256 cellar: :any,                 arm64_sequoia: "13dafaadfc1dbb0d67927c055d23ae02e73ae8358d6d5869424b9b69aec36a5c"
+    sha256 cellar: :any,                 tahoe:         "f701a67ab0c8b0757089b9b89e82657b5f70e2bc6498043f344ffd130284fbc1"
+    sha256 cellar: :any,                 sequoia:       "4fe97f55e3354b2f29cc64555108290981008f2f6295bc2194a614cb1d24ae8a"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "d3cbf0ff86c94eebb3339e72eb270bfef402bf0f8b216b632ff8d2a63f11fe14"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5e22b844de45413eda22d23dd1092b3cd3e5432afedeb8f5772c748a39281914"
+  end
+
   head do
     url "https://github.com/ngtcp2/ngtcp2.git", branch: "main"
 
