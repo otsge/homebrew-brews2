@@ -1,11 +1,11 @@
 name: CI
 
 on:
-  # push:
-  #   branches:
-  #     - main
-  #   paths:
-  #     - '**.rb'
+  push:
+    branches:
+      - main
+    paths:
+      - '**.rb'
   pull_request:
     paths:
       - '**.rb'
@@ -23,16 +23,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  check-syntax:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set up Homebrew
-        id: set-up-homebrew
-        uses: Homebrew/actions/setup-homebrew@main
-
-      - run: brew test-bot --only-tap-syntax
   test-bot:
-    needs: check-syntax
     strategy:
       matrix:
         os: [ macos-15, macos-15-intel, macos-26, macos-26-intel ]
@@ -74,20 +65,6 @@ jobs:
           fi
           echo "prefix=${cache_key_prefix}" >> "${GITHUB_OUTPUT}"
 
-      # - name: Get cache key
-      #   id: cache-key
-      #   run: |
-      #     cache_key_prefix="${{ runner.os }}"
-      #     if [ "${{ runner.os }}" == "macOS" ]
-      #     then
-      #       macos_version="$(sw_vers -productVersion)"
-      #       cache_key_prefix="macos${macos_version%%.*}-$(uname -m)"
-      #     elif [ "${{ runner.os }}" == "Linux" ]
-      #     then
-      #       cache_key_prefix="linux-$(uname -m)"
-      #     fi
-      #     echo "prefix=${cache_key_prefix}" >> "${GITHUB_OUTPUT}"
-
       - name: Cache Homebrew Bundler RubyGems
         uses: actions/cache@main
         with:
@@ -98,8 +75,9 @@ jobs:
       - name: Setup Homebrew test environment
         run: brew test-bot --only-setup
 
+      - run: brew test-bot --only-tap-syntax
       - name: Install FUSE-T
-        if: ${{ runner.os == 'macOS' }}
+        if: ${{ contains(github.head_ref, 'rclone') && github.event_name == 'pull_request' && runner.os == 'macOS' }}
         run: |
           brew tap otsge/casks2
           brew install --cask otsge/casks2/fuse-t
@@ -107,13 +85,16 @@ jobs:
       - name: Build bottle
         id: build-bottle
         if: github.event_name == 'pull_request'
+        env:
+          IS_CURL: ${{ case(contains(github.head_ref, 'curl'), 'TRUE', 'FALSE') }}
         run:  |
           export HOMEBREW_NO_AUTO_UPDATE=1
           export HOMEBREW_NO_INSTALL_FROM_API=1
-          if [[ "${{ runner.os }}" == "macOS" ]]
+          if [[ "${IS_CURL}" == "TRUE" && "${{ runner.os }}" == "macOS" ]]
           then
             LC_ALL=C LANG=C sed -i '' 's#depends_on "libssh2"#depends_on "otsge/brews2/libssh2"#g' "$(brew --taps)"/homebrew/homebrew-core/Formula/*/*.rb
-          else
+          elif [[ "${IS_CURL}" == "TRUE" && "${{ runner.os }}" == "Linux" ]]
+          then
             LC_ALL=C LANG=C sed -i 's!uses_from_macos "curl"!# uses_from_macos "curl"!g' "$(brew --taps)"/homebrew/homebrew-core/Formula/r/rust.rb
             LC_ALL=C LANG=C sed -i 's#depends_on "libssh2"#depends_on "otsge/brews2/libssh2"#g' "$(brew --taps)"/homebrew/homebrew-core/Formula/*/*.rb
           fi

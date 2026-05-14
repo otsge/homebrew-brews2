@@ -1,4 +1,4 @@
-name: brew pr-pull
+name: Publish and commit bottles
 
 on:
   pull_request_target:
@@ -16,7 +16,7 @@ defaults:
 jobs:
   pr-pull:
     if: contains(github.event.pull_request.labels.*.name, 'pr-pull')
-    runs-on: macos-latest
+    runs-on: macos-26
     permissions:
       actions: read
       checks: read
@@ -27,10 +27,14 @@ jobs:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@main
         with:
+          cask: false
+          core: false
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up git
         uses: Homebrew/actions/git-user-config@main
+        with:
+          username: ${{ github.repository_owner }}
 
       - name: Pull bottles
         env:

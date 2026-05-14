@@ -1,4 +1,4 @@
-name: Homebrew bump packages
+name: Bump formulae on schedule or request
 
 on:
   workflow_dispatch:
