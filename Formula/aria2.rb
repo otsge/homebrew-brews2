@@ -5,6 +5,16 @@ class Aria2 < Formula
   sha256 "60a420ad7085eb616cb6e2bdf0a7206d68ff3d37fb5a956dc44242eb2f79b66b"
   license "GPL-2.0-or-later"
 
+  bottle do
+    root_url "https://github.com/otsge/homebrew-brews2/releases/download/aria2-1.37.0"
+    sha256 cellar: :any,                 arm64_tahoe:   "f31e50cf69fb8ab9f2e663147740e01062db9fb93599488dc58cec822d1a9573"
+    sha256 cellar: :any,                 arm64_sequoia: "58d3d0e8d5b55fc04fce36c4b1f2ba6f5d69032216391598b4a3fb701da0cf36"
+    sha256 cellar: :any,                 tahoe:         "d037eaa88598dac4cc29da157ea1fdd6401d44c149212a493341b801e24c1698"
+    sha256 cellar: :any,                 sequoia:       "aa46f620c8a95c7944b6307d99d17cf7fa29ad5bad725dab9afe76af5b9a4a6c"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "0b1bf204cb56e6c6b09da887ac1ab4af7fa53a1dc43ea730c793bf869d9613bb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6a1693ab261c4dc9e8df27609d3c695c664ffbb65de92282e1940682de8cdab4"
+  end
+
   head do
     url "https://github.com/aria2/aria2.git", branch: "master"
 
