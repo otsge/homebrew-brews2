@@ -6,6 +6,16 @@ class Rclone < Formula
   license "MIT"
   head "https://github.com/rclone/rclone.git", branch: "master"
 
+  bottle do
+    root_url "https://github.com/otsge/homebrew-brews2/releases/download/rclone-1.74.1"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "f2a40a24e7032bdd3bdd164c4d64379fd5630574b11d54473ae70efc7aa78c5d"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0741d251648878d0f74806dd9c4700d9961b59b71875896f58103acbb17bf720"
+    sha256 cellar: :any_skip_relocation, tahoe:         "e54ea790aa798be26c9760afb59bb4282bf07d4468c8650428fc7af789a9c3b6"
+    sha256 cellar: :any_skip_relocation, sequoia:       "e6269f48494544aad4f03eb1dd4ca4fa3b898e7a4c51110a39862121e81997d7"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "052ffb086ef8fb097266c9b9870755a1653e73e413ed7ea2b41361de8632489b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3e48dac9b077d762898e51dde0cf5071bb572b68084a588eb9fb9616869128cc"
+  end
+
   depends_on "go" => :build
 
   on_linux do
