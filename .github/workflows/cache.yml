@@ -1,0 +1,80 @@
+name: Populate gem cache
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/cache.yml
+  push:
+    paths:
+      - .github/workflows/cache.yml
+    branches:
+      - main
+  schedule:
+    - cron: '30 19/6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  HOMEBREW_DEVELOPER: 1
+  HOMEBREW_NO_ANALYTICS: 1
+  HOMEBREW_NO_AUTO_UPDATE: 1
+
+defaults:
+  run:
+    shell: bash -xeuo pipefail {0}
+
+concurrency:
+  group: cache-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  cache:
+    strategy:
+      matrix:
+        os: [ macos-15, macos-15-intel, macos-26, macos-26-intel ]
+        include:
+          - os: ubuntu-latest
+            container: ghcr.io/homebrew/brew:main
+          - os: ubuntu-22.04-arm
+            container: ghcr.io/homebrew/brew:main
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
+    container: ${{ matrix.container }}
+    steps:
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@main
+        with:
+          core: false
+          cask: false
+
+      - name: Cleanup runner
+        working-directory: ${{ runner.temp }}
+        run: brew test-bot --only-cleanup-before
+
+      - name: Get cache key
+        id: cache-key
+        run: |
+          cache_key_prefix="${{ runner.os }}"
+          if [ "${{ runner.os }}" = macOS ]
+          then
+            macos_version="$(sw_vers -productVersion)"
+            cache_key_prefix="${macos_version%%.*}-$(uname -m)"
+          elif [ "${{ runner.os }}" == "Linux" ]
+          then
+            cache_key_prefix="linux-$(uname -m)"
+          fi
+          echo "prefix=${cache_key_prefix}" >> "${GITHUB_OUTPUT}"
+
+      - name: Cache Homebrew Bundler gems
+        uses: actions/cache@main
+        with:
+          path: ${{ steps.set-up-homebrew.outputs.gems-path }}
+          key: ${{ steps.cache-key.outputs.prefix }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
+          restore-keys: ${{ steps.cache-key.outputs.prefix }}-rubygems-
+
+      - name: Setup Homebrew test environment
+        working-directory: ${{ runner.temp }}
+        run: brew test-bot --only-setup

@@ -64,15 +64,29 @@ jobs:
         id: cache-key
         run: |
           cache_key_prefix="${{ runner.os }}"
-          if [ "${{ runner.os }}" == "macOS" ]
+          if [ "${{ runner.os }}" = macOS ]
           then
             macos_version="$(sw_vers -productVersion)"
-            cache_key_prefix="macos${macos_version%%.*}-$(uname -m)"
+            cache_key_prefix="${macos_version%%.*}-$(uname -m)"
           elif [ "${{ runner.os }}" == "Linux" ]
           then
             cache_key_prefix="linux-$(uname -m)"
           fi
           echo "prefix=${cache_key_prefix}" >> "${GITHUB_OUTPUT}"
+
+      # - name: Get cache key
+      #   id: cache-key
+      #   run: |
+      #     cache_key_prefix="${{ runner.os }}"
+      #     if [ "${{ runner.os }}" == "macOS" ]
+      #     then
+      #       macos_version="$(sw_vers -productVersion)"
+      #       cache_key_prefix="macos${macos_version%%.*}-$(uname -m)"
+      #     elif [ "${{ runner.os }}" == "Linux" ]
+      #     then
+      #       cache_key_prefix="linux-$(uname -m)"
+      #     fi
+      #     echo "prefix=${cache_key_prefix}" >> "${GITHUB_OUTPUT}"
 
       - name: Cache Homebrew Bundler RubyGems
         uses: actions/cache@main
