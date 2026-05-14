@@ -13,6 +13,16 @@ class Curl < Formula
     regex(/href=.*?curl[._-]v?(.*?)\.t/i)
   end
 
+  bottle do
+    root_url "https://github.com/otsge/homebrew-brews2/releases/download/curl-8.20.0"
+    sha256 cellar: :any,                 arm64_tahoe:   "c2601149174fa2c9d90c9ed24737f07535063d6bb6c7b58a0b8dadf4dc506e8f"
+    sha256 cellar: :any,                 arm64_sequoia: "a531ed9c2c96508b764c11e042cf1077bf972d0e48a4f45d2328a144a809db24"
+    sha256 cellar: :any,                 tahoe:         "11950c5c0274c6b5b3c4e80ef7fb71565340532eaae408af56d8e1406d546a30"
+    sha256 cellar: :any,                 sequoia:       "bc4c1e54c07eaa8ca85bf0042174e30b85dc89905d883703bfeced034c2ea97c"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "4fba0490e3f65e74e687b4198f07fd180d4c53d34d50211c3a580bfa855996ba"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d6a10c9f68c58d63e211f5ab3c0c6ab87dcf864bef99ca5e75e747d6b0d9f3ec"
+  end
+
   head do
     url "https://github.com/curl/curl.git", branch: "master"
 
