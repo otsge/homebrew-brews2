@@ -20,13 +20,9 @@ defaults:
 
 jobs:
   check-syntax:
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            container: ghcr.io/homebrew/brew:main
-    runs-on: ${{ matrix.os }}
-    container: ${{ matrix.container }}
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/homebrew/brew:main
     steps:
       - name: Set up Homebrew
         id: set-up-homebrew
@@ -55,6 +51,7 @@ jobs:
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@main
         with:
+          cask: false
           core: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -88,7 +85,7 @@ jobs:
       - name: Install FUSE-T
         if: ${{ runner.os == 'macOS' }}
         run: |
-          brew tap otsge/casks2/fuse-t
+          brew tap otsge/casks2
           brew install --cask otsge/casks2/fuse-t
 
       - name: Build bottle
@@ -97,16 +94,13 @@ jobs:
         run:  |
           export HOMEBREW_NO_AUTO_UPDATE=1
           export HOMEBREW_NO_INSTALL_FROM_API=1
-          if [[ "${{ runner.os }}" == "macOS" ]]
+          if [[ "${{ runner.os }}" == "Linux" ]]
           then
-            LC_ALL=C LANG=C sed -i '' 's#depends_on "libssh2"#depends_on "otsge/brews2/libssh2"#g' "$(brew --taps)"/homebrew/homebrew-core/Formula/*/*.rb
-          else
             LC_ALL=C LANG=C sed -i 's!uses_from_macos "curl"!# uses_from_macos "curl"!g' "$(brew --taps)"/homebrew/homebrew-core/Formula/r/rust.rb
-            LC_ALL=C LANG=C sed -i 's#depends_on "libssh2"#depends_on "otsge/brews2/libssh2"#g' "$(brew --taps)"/homebrew/homebrew-core/Formula/*/*.rb
           fi
           if [[ "${{ runner.os }}" == "macOS" && "${{ runner.arch }}" == "X64" ]]
           then
-            cp /Users/runner/work/homebrew-brews/homebrew-brews/.github/workflows/files/tb_formulae "$(brew --prefix)/Homebrew/Library/Homebrew/test_bot/formulae.rb"
+            cp /Users/runner/work/homebrew-brews2/homebrew-brews2/.github/workflows/files/tb_formulae "$(brew --prefix)/Homebrew/Library/Homebrew/test_bot/formulae.rb"
           fi
           brew test-bot --only-formulae
 
