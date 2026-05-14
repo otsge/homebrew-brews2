@@ -12,6 +12,16 @@ class Libssh2 < Formula
     regex(/href=.*?libssh2[._-]v?(\d+(?:\.\d+)+)\./i)
   end
 
+  bottle do
+    root_url "https://github.com/otsge/homebrew-brews2/releases/download/libssh2-1.11.1"
+    sha256 cellar: :any,                 arm64_tahoe:   "a587acb35726120038b2875134bf1763a3e594fcf8bbfbf840001c8b6e46126a"
+    sha256 cellar: :any,                 arm64_sequoia: "1d8d7619151a2e621f9d91295558eddb616ffdd8e211618f7ad06560f36ca8c3"
+    sha256 cellar: :any,                 tahoe:         "f46f4c02447d6cdd586320f029c49bf36eca0dd673048703c267032459bb81c8"
+    sha256 cellar: :any,                 sequoia:       "0190b97cb087736f54d331f0be1bd156d0ad55cceab2db5b82dd0a55e65a3b68"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "b1357a894588c0cd0e7702622ec43e9a2a4300660ac49e94f00662dc68f8405a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4e0ef389804acfe8dc377ac8dab247de7eccf61dc0f6ffcc1cff4f96003eefca"
+  end
+
   head do
     url "https://github.com/libssh2/libssh2.git", branch: "master"
 
