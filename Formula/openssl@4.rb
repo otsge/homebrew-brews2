@@ -10,6 +10,16 @@ class OpensslAT4 < Formula
     regex(/href=.*?openssl[._-]v?(4(?:\.\d+)+)\.t/i)
   end
 
+  bottle do
+    root_url "https://github.com/otsge/homebrew-brews2/releases/download/openssl@4-4.0.0"
+    sha256 arm64_tahoe:   "c1ad8aff1340b386b09ca1f3c9129b5bc98eee5101af6889d0b17c6cbd669ad6"
+    sha256 arm64_sequoia: "75e16037d4ac48455aa98754ded34fab54bdb33485a97a4ab53fc2f81076c848"
+    sha256 tahoe:         "f75458d56afd1151c41e65bab995ab2db6c3a1aa8f4f6579f1b7d8c8956df41a"
+    sha256 sequoia:       "979eb050b2e06caebb44568d182012beadc3b857bd102f3ffe4c267f420034e5"
+    sha256 arm64_linux:   "6483631bca772355a49e0381001b1a882d8a6c20054a67b6a32fa2b74515c91b"
+    sha256 x86_64_linux:  "df6c3d912c89dddc6ed3dc780e9bf6dc10baff36fc3adfee0370491a132a8483"
+  end
+
   keg_only :versioned_formula
 
   depends_on "brotli"
