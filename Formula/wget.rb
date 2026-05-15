@@ -5,6 +5,16 @@ class Wget < Formula
   sha256 "766e48423e79359ea31e41db9e5c289675947a7fcf2efdcedb726ac9d0da3784"
   license "GPL-3.0-or-later"
 
+  bottle do
+    root_url "https://github.com/otsge/homebrew-brews2/releases/download/wget-1.25.0"
+    sha256 arm64_tahoe:   "987fae3c92efb5ddd747a61b209eba336b003a5353314beac5bfacd8734667a6"
+    sha256 arm64_sequoia: "c997e7b5e3fa96c4cb5914127e2f45511054ebc03a79683db63239fd744761b4"
+    sha256 tahoe:         "5108bb3f256fd0593b5d297dee9fdfd8b06163bd08fb58e0000d67e52214c98c"
+    sha256 sequoia:       "0fd6b5db60ae3e782f416c3d744cb445caf23e200645bd3afcb8b7ed25f5a3f4"
+    sha256 arm64_linux:   "af0d3d7dfc0e56d9a9155407fb5460a19ecd9f107020ca892ab9a7ea3ecd7b1d"
+    sha256 x86_64_linux:  "675793326ea957bd8ca344c75d2ae368ee1c370a43138d4e3b4344eba1547336"
+  end
+
   head do
     url "https://gitlab.com/gnuwget/wget.git", branch: "master"
 
