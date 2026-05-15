@@ -30,18 +30,37 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  determine-runners:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/homebrew/brew:main
+    outputs:
+      runners: ${{ steps.determine-runners.outputs.runners }}
+    steps:
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@main
+        with:
+          core: false
+          cask: false
+
+      - name: Determine runners to use for this job
+        id: determine-runners
+        env:
+          HOMEBREW_MACOS_TIMEOUT: 30
+        # run: echo "runners=[{\"name\":\"Linux x86_64\",\"runner\":\"ubuntu-latest\",\"container\":{\"image\":\"ghcr.io/homebrew/brew:main\"},\"workdir\":\"/github/home\",\"timeout\":2160,\"cleanup\":false,\"testing_formulae\":\"\"},{\"name\":\"Linux arm64\",\"runner\":\"ubuntu-22.04-arm\",\"container\":{\"image\":\"ghcr.io/homebrew/brew:main\"},\"timeout\":2160,\"cleanup\":false,\"testing_formulae\":\"\"},{\"name\":\"macOS 26-arm64\",\"runner\":\"26-arm64-\",\"timeout\":60,\"cleanup\":false,\"testing_formulae\":\"\"},{\"name\":\"macOS 26-x86_64\",\"runner\":\"26-x86_64-\",\"timeout\":120,\"cleanup\":false,\"testing_formulae\":\"\"},{\"name\":\"macOS 15-arm64\",\"runner\":\"15-arm64-\",\"timeout\":60,\"cleanup\":false,\"testing_formulae\":\"\"},{\"name\":\"macOS 15-x86_64\",\"runner\":\"15-x86_64-\",\"timeout\":120,\"cleanup\":false,\"testing_formulae\":\"\"},{\"name\":\"macOS 14-arm64\",\"runner\":\"14-arm64-\",\"timeout\":60,\"cleanup\":false,\"testing_formulae\":\"\"},{\"name\":\"macOS 14-x86_64\",\"runner\":\"14-x86_64-\",\"timeout\":120,\"cleanup\":false,\"testing_formulae\":\"\"}]" >> "$GITHUB_OUTPUT"
+        run: brew determine-test-runners python@3.14
+
   cache:
+    needs: determine-runners
     strategy:
       matrix:
-        os: [ macos-15, macos-15-intel, macos-26, macos-26-intel ]
-        include:
-          - os: ubuntu-latest
-            container: ghcr.io/homebrew/brew:main
-          - os: ubuntu-22.04-arm
-            container: ghcr.io/homebrew/brew:main
+        include: ${{ fromJson(needs.determine-runners.outputs.runners) }}
       fail-fast: false
-    runs-on: ${{ matrix.os }}
-    container: ${{ matrix.container }}
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.runner }}
+    # container: ${{ matrix.container }}
+    timeout-minutes: ${{ matrix.timeout }}
     steps:
       - name: Set up Homebrew
         id: set-up-homebrew
@@ -51,6 +70,7 @@ jobs:
           cask: false
 
       - name: Cleanup runner
+        if: matrix.cleanup
         working-directory: ${{ runner.temp }}
         run: brew test-bot --only-cleanup-before
 
