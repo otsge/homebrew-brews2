@@ -25,6 +25,7 @@ concurrency:
 jobs:
   test-bot:
     strategy:
+      fail-fast: false
       matrix:
         os: [ macos-15, macos-15-intel, macos-26, macos-26-intel ]
         include:
@@ -34,6 +35,8 @@ jobs:
             container: ghcr.io/homebrew/brew:main
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
+    outputs:
+      bottles: ${{ steps.upload-bottles.outputs.artifact-id }}
     permissions:
       actions: read
       checks: read
@@ -82,7 +85,7 @@ jobs:
           brew tap otsge/casks2
           brew install --cask otsge/casks2/fuse-t
 
-      - name: Build bottle
+      - name: Build bottle for ${{ matrix.os }}
         id: build-bottle
         if: github.event_name == 'pull_request'
         env:
@@ -105,6 +108,7 @@ jobs:
           brew test-bot --only-formulae
 
       - name: Upload bottles as artifact
+        id: upload-bottles
         if: always() && github.event_name == 'pull_request'
         uses: actions/upload-artifact@main
         with:
@@ -112,7 +116,7 @@ jobs:
           path: '*.bottle.*'
   label-pr:
     needs: test-bot
-    if: ${{ startsWith(github.head_ref, 'bump') && github.event_name == 'pull_request' }}
+    if: ${{ needs.test-bot.outputs.bottles > 0  && github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     steps:
     - id: label-the-PR
