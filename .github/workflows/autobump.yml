@@ -15,9 +15,6 @@ on:
   schedule:
     - cron: "15 */8 * * *"
 
-permissions:
-  contents: read
-
 env:
   HOMEBREW_DEVELOPER: 1
   HOMEBREW_NO_ANALYTICS: 1
@@ -51,7 +48,7 @@ jobs:
       # run: brew bump -d -v --no-fork --open-pr --formulae --full-name --bump-synced --tap "${GITHUB_REPOSITORY}"
       continue-on-error: true
       env:
-        HOMEBREW_GITHUB_API_TOKEN: ${{secrets.AUTOBUMP_TOKEN}}
+        HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.AUTOBUMP_TOKEN }}
         HOMEBREW_TEST_BOT_AUTOBUMP: 1
         HOMEBREW_GIT_COMMITTER_NAME: BrewTestBot
         HOMEBREW_GIT_COMMITTER_EMAIL: 1589480+BrewTestBot@users.noreply.github.com

@@ -1,15 +1,15 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - main
-      - master
-    paths:
-      - Formula/**
+  # push:
+  #   branches:
+  #     - main
+  #     - master
+  #   paths:
+  #     - 'Formula/**'
   pull_request:
     paths:
-      - Formula/**
+      - 'Formula/**'
 
 env:
   HOMEBREW_DEVELOPER: 1
@@ -30,10 +30,10 @@ jobs:
       matrix:
         os: [ macos-15, macos-15-intel, macos-26, macos-26-intel ]
         include:
-          - os: ubuntu-latest
-            container: ghcr.io/homebrew/brew:main
-          - os: ubuntu-22.04-arm
-            container: ghcr.io/homebrew/brew:main
+          - os: ubuntu-24.04
+            container: ghcr.io/homebrew/ubuntu24.04:main
+          - os: ubuntu-24.04-arm
+            container: ghcr.io/homebrew/ubuntu24.04:main
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
     outputs:
@@ -84,6 +84,7 @@ jobs:
         if: ${{ contains(github.head_ref, 'rclone') && github.event_name == 'pull_request' && runner.os == 'macOS' }}
         run: |
           brew tap otsge/casks2
+          brew trust otsge/casks2
           brew install --cask otsge/casks2/fuse-t
 
       - name: Build bottle for ${{ matrix.os }}
@@ -106,6 +107,13 @@ jobs:
           then
             cp /Users/runner/work/homebrew-brews2/homebrew-brews2/.github/workflows/files/tb_formulae "$(brew --prefix)/Homebrew/Library/Homebrew/test_bot/formulae.rb"
           fi
+          pushd "$(brew --repository)"
+          s="$(git status --porcelain)"
+          if [[ -n "$s" ]]
+          then
+            git add . && git commit --amend --no-edit
+          fi
+          popd
           brew test-bot --only-formulae
 
       - name: Upload bottles as artifact
@@ -118,10 +126,10 @@ jobs:
   label-pr:
     needs: test-bot
     if: ${{ needs.test-bot.outputs.bottles > 0  && github.event_name == 'pull_request' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
     - id: label-the-PR
       env:
-        GH_TOKEN: ${{secrets.AUTOBUMP_TOKEN}}
+        GH_TOKEN: ${{ secrets.AUTOBUMP_TOKEN }}
         PR_NUMBER: ${{ github.event.pull_request.number }}
-      run: gh pr edit "${PR_NUMBER}" --add-label "pr-pull" --repo "otsge/homebrew-brews2"
+      run: gh pr edit "${PR_NUMBER}" --add-label "pr-pull" --repo "${GITHUB_REPOSITORY}"

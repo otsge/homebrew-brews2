@@ -9,6 +9,7 @@ on:
       - .github/workflows/cache.yml
     branches:
       - main
+      - master
   schedule:
     - cron: '30 19/6 * * *'
   workflow_dispatch:
@@ -43,12 +44,12 @@ jobs:
             name: macOS 26-arm64
           - os: macos-26-intel
             name: macOS 26-x86_64
-          - os: ubuntu-latest
+          - os: ubuntu-24.04
             name: Linux x86_64
-            container: ghcr.io/homebrew/brew:main
-          - os: ubuntu-22.04-arm
+            container: ghcr.io/homebrew/ubuntu24.04:main
+          - os: ubuntu-24.04-arm
             name: Linux arm64
-            container: ghcr.io/homebrew/brew:main
+            container: ghcr.io/homebrew/ubuntu24.04:main
       fail-fast: false
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
