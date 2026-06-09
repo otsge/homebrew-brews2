@@ -7,13 +7,13 @@ class Rclone < Formula
   head "https://github.com/rclone/rclone.git", branch: "master"
 
   bottle do
-    root_url "https://github.com/otsge/homebrew-brews2/releases/download/rclone-1.74.2"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "88eb6f40cc12d701e8dc6c8eda71297a089f4454ea0e80a07fb58b7f020da7c8"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8bc4ee41991f7c62e8cfcd57be551d3f8aef1a94995e8c48e9c8c03bb6bab096"
-    sha256 cellar: :any_skip_relocation, tahoe:         "3fc5a6692802c05d402762d80450632c6abfe23ae98927032c5ea692aa925b70"
-    sha256 cellar: :any_skip_relocation, sequoia:       "ce96d87395bfca2bc38a0871d95e220c3f53676ab0e8a226b3c8de2a21aea7ca"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "cbbf0eeaa5cfdbce112543813bb7973bca40abcdef9698ba176b16e60e40e443"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b1f5d1086603837ee074d0b896935937ef7ca00626f34025ad14b5fbee899393"
+    root_url "https://github.com/otsge/homebrew-brews2/releases/download/rclone-1.74.3"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "49a0b7ae1de77243adfa18914ec08189ada8e62f5c32ad4d38f91df761e3ea68"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4fed751f0e1e01d2dccc41da20560690114bf8bd8a7610b43fe9c27cb9bbfff8"
+    sha256 cellar: :any_skip_relocation, tahoe:         "0e7045f7be9881d26ecc130a429c2e8e9a44d3e796b2517a9fece7d826e2e7d4"
+    sha256 cellar: :any_skip_relocation, sequoia:       "cad20508d5a331eeae94f6c6c97f85402a77d0d0d84a77f82fc0206dfaae4301"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "a64228aca51a868cf0032cc745c6990c7a957467b50bd7f9a0d7a01712c52603"
+    sha256 cellar: :any,                 x86_64_linux:  "c151c6b2d1505dc2933dda890149e2a26a7ff348037c8ba7650a3ac974d33bce"
   end
 
   depends_on "go" => :build
