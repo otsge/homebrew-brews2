@@ -7,13 +7,13 @@ class Libngtcp2 < Formula
   license "MIT"
 
   bottle do
-    root_url "https://github.com/otsge/homebrew-brews2/releases/download/libngtcp2-1.22.1"
-    sha256 cellar: :any,                 arm64_tahoe:   "38ebdfbdade1d7b34bfb94aa5f536a797860cd60d0385b7b50d2f20a55137926"
-    sha256 cellar: :any,                 arm64_sequoia: "13dafaadfc1dbb0d67927c055d23ae02e73ae8358d6d5869424b9b69aec36a5c"
-    sha256 cellar: :any,                 tahoe:         "f701a67ab0c8b0757089b9b89e82657b5f70e2bc6498043f344ffd130284fbc1"
-    sha256 cellar: :any,                 sequoia:       "4fe97f55e3354b2f29cc64555108290981008f2f6295bc2194a614cb1d24ae8a"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "d3cbf0ff86c94eebb3339e72eb270bfef402bf0f8b216b632ff8d2a63f11fe14"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5e22b844de45413eda22d23dd1092b3cd3e5432afedeb8f5772c748a39281914"
+    root_url "https://github.com/otsge/homebrew-brews2/releases/download/libngtcp2-1.23.0"
+    sha256 cellar: :any, arm64_tahoe:   "4ce538fd62184360f3bad48c5adb2a9d65729b55084cae2205d0f21a0734e683"
+    sha256 cellar: :any, arm64_sequoia: "085e5752d3e24e5f0948e8f225d3b9268311a061444c9363b72d32b91750540d"
+    sha256 cellar: :any, tahoe:         "f77a9fd40ec0728f69ce22f3313eb6e6e0e691583331044d9165e97a9c9f539d"
+    sha256 cellar: :any, sequoia:       "5ace41634d62be9c55fe7ab3693f05f2bf920f4f6ea2cc73379348e42a52fbbd"
+    sha256 cellar: :any, arm64_linux:   "96765d049be08761bc1ef83374c4bb8a42c13cd89be3c1790061c4935d3f3e5c"
+    sha256 cellar: :any, x86_64_linux:  "505f69bd9f9510042cfa1da111cf1cebcfc2132da9bc72314852d87f796c2427"
   end
 
   head do
