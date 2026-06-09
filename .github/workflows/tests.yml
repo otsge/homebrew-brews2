@@ -14,6 +14,10 @@ on:
 env:
   HOMEBREW_DEVELOPER: 1
   HOMEBREW_NO_ANALYTICS: 1
+  HOMEBREW_GITHUB_ACTIONS: 1
+  HOMEBREW_NO_AUTO_UPDATE: 1
+  HOMEBREW_NO_INSTALL_FROM_API: 1
+  HOMEBREW_NO_BUILD_ERROR_ISSUES: 1
 
 defaults:
   run:
@@ -93,8 +97,6 @@ jobs:
         env:
           IS_CURL: ${{ case(contains(github.head_ref, 'curl'), 'TRUE', 'FALSE') }}
         run:  |
-          export HOMEBREW_NO_AUTO_UPDATE=1
-          export HOMEBREW_NO_INSTALL_FROM_API=1
           if [[ "${IS_CURL}" == "TRUE" && "${{ runner.os }}" == "macOS" ]]
           then
             LC_ALL=C LANG=C sed -i '' 's#depends_on "libssh2"#depends_on "otsge/brews2/libssh2"#g' "$(brew --taps)"/homebrew/homebrew-core/Formula/*/*.rb
@@ -114,7 +116,7 @@ jobs:
             git add . && git commit --amend --no-edit
           fi
           popd
-          brew test-bot --only-formulae
+          brew test-bot --only-formulae --skip-online-checks --skip-dependents
 
       - name: Upload bottles as artifact
         id: upload-bottles

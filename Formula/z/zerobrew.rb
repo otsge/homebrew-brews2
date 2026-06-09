@@ -7,13 +7,13 @@ class Zerobrew < Formula
   head "https://github.com/lucasgelfond/zerobrew.git", branch: "main"
 
   bottle do
-    root_url "https://github.com/otsge/homebrew-brews2/releases/download/zerobrew-0.2.1"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "105ef1ba067e3149a9f8b97396c8c8be430b84afb07b8392f3b057beff2dd2b9"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "908cece87ef8bc9eaf34bafae55d06492bd3005b9ba3f7367636e7b748c07692"
-    sha256 cellar: :any_skip_relocation, tahoe:         "424b223fe98181657fef82f15cdcca7c62a7c86c19d4ca0a1dbd3568c6752ee7"
-    sha256 cellar: :any_skip_relocation, sequoia:       "508b7fb4973f8b9be791000ea277d9b278376893fa49aba00894f562e1c7882e"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "8ef487e8fd0f6b7e27a4d2571b8fd0cbbc4c9f4e906782d1ec6669d46cf9ccbd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "be289935b3f822608035a54177ce077192e4714c60efeafaba6f0ec01b7b92ec"
+    root_url "https://github.com/otsge/homebrew-brews2/releases/download/zerobrew-0.3.1"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "fdd86477c40dee2f9cbe87f9d09581214664c65bb05edd8e480b196630e062c9"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4cf4c5ef404b5e8bff50b93ec303b3eecfc66d4fb0cfad49cbac20fc83662b13"
+    sha256 cellar: :any_skip_relocation, tahoe:         "4f7a52e28628621d68fe5b6744aa64693d81eca87121ac13297da60427874bba"
+    sha256 cellar: :any_skip_relocation, sequoia:       "9bb732b45fd2f6899039fa044e348cb0cde60dcdc2f0f3194f6d8a4cc8cee77a"
+    sha256 cellar: :any,                 arm64_linux:   "e772b8831e0421b3b3fc0340e9261f2350e0d779d9e45a6dddcb39629ea5b8d5"
+    sha256 cellar: :any,                 x86_64_linux:  "5228ff2ca41c5143bea780dc295e6332b5be2f1c1bcd8e14df95d775facef250"
   end
 
   depends_on "rust" => :build
