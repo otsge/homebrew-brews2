@@ -46,7 +46,7 @@ class Wget < Formula
     system "./configure", "--prefix=#{prefix}",
                           "--sysconfdir=#{etc}",
                           "--with-ssl=openssl",
-                          "--with-libssl-prefix=#{Formula["openssl@4"].opt_prefix}",
+                          "--with-libssl-prefix=#{formula_opt_prefix("openssl@4")}",
                           "--with-metalink",
                           "--disable-pcre",
                           "--disable-pcre2",

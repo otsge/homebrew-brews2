@@ -40,7 +40,7 @@ class Et < Formula
       -DDISABLE_TELEMETRY=ON
       -DBUILD_TESTING=OFF
       -DBASH_COMPLETION_COMPLETIONSDIR=#{bash_completion}
-      -DOPENSSL_ROOT_DIR=#{Formula["openssl@4"].opt_prefix}
+      -DOPENSSL_ROOT_DIR=#{formula_opt_prefix("openssl@4")}
       -DPYTHON_EXECUTABLE=#{which("python3")}
     ]
 

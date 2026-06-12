@@ -125,7 +125,7 @@ class CurlQuiche < Formula
         --with-gssapi
       ]
     else
-      ["--with-gssapi=#{Formula["krb5"].opt_prefix}"]
+      ["--with-gssapi=#{formula_opt_prefix("krb5")}"]
     end
 
     args += if OS.mac? && MacOS.version >= :ventura

@@ -32,7 +32,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ macos-15, macos-15-intel, macos-26, macos-26-intel ]
+        # os: [ macos-15, macos-15-intel, macos-26, macos-26-intel ]
+        os: [ macos-15, macos-15-intel, macos-26 ]
         include:
           - os: ubuntu-24.04
             container: ghcr.io/homebrew/ubuntu24.04:main

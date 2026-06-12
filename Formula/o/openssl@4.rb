@@ -53,17 +53,17 @@ class OpensslAT4 < Formula
       --prefix=#{prefix}
       --openssldir=#{pkgetc}
       --libdir=lib
-      --with-brotli-include=#{Formula["brotli"].opt_include}
-      --with-brotli-lib=#{Formula["brotli"].opt_lib}
-      --with-zstd-include=#{Formula["zstd"].opt_include}
-      --with-zstd-lib=#{Formula["zstd"].opt_lib}
+      --with-brotli-include=#{formula_opt_include("brotli")}
+      --with-brotli-lib=#{formula_opt_lib("brotli")}
+      --with-zstd-include=#{formula_opt_include("zstd")}
+      --with-zstd-lib=#{formula_opt_lib("zstd")}
       enable-brotli
       enable-zstd
       zlib
     ]
     on_linux do
-      args << "--with-zlib-include=#{Formula["zlib-ng-compat"].opt_include}"
-      args << "--with-zlib-lib=#{Formula["zlib-ng-compat"].opt_lib}"
+      args << "--with-zlib-include=#{formula_opt_include("zlib-ng-compat")}"
+      args << "--with-zlib-lib=#{formula_opt_lib("zlib-ng-compat")}"
       args += (ENV.cflags || "").split
       args += (ENV.cppflags || "").split
       args += (ENV.ldflags || "").split
@@ -88,7 +88,7 @@ class OpensslAT4 < Formula
     # This ensures where Homebrew's Perl is needed the Cellar path isn't
     # hardcoded into OpenSSL's scripts, causing them to break every Perl update.
     # Whilst our env points to opt_bin, by default OpenSSL resolves the symlink.
-    ENV["PERL"] = Formula["perl"].opt_bin/"perl" if which("perl") == Formula["perl"].opt_bin/"perl"
+    ENV["PERL"] = formula_opt_bin("perl")/"perl" if which("perl") == formula_opt_bin("perl")/"perl"
 
     arch_args = []
     if OS.mac?
