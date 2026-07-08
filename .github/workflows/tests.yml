@@ -98,6 +98,7 @@ jobs:
         env:
           IS_CURL: ${{ case(contains(github.head_ref, 'curl'), 'TRUE', 'FALSE') }}
         run:  |
+          export HOMEBREW_NO_INSTALL_FROM_API=1
           if [[ "${IS_CURL}" == "TRUE" && "${{ runner.os }}" == "macOS" ]]
           then
             LC_ALL=C LANG=C sed -i '' 's#depends_on "libssh2"#depends_on "otsge/brews2/libssh2"#g' "$(brew --taps)"/homebrew/homebrew-core/Formula/*/*.rb
