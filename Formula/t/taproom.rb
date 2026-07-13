@@ -7,12 +7,12 @@ class Taproom < Formula
   head "https://github.com/hzqtc/taproom.git", branch: "main"
 
   bottle do
-    root_url "https://github.com/otsge/homebrew-brews2/releases/download/taproom-0.6.1"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "893b6f719bb4daadaea1a4527fdd392ba43183fe4671f0f47718f74bfa35f67f"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b4eaba2b2b5e1f9a4a075555cf87708e7eb32c49cf27dbec03172e770c4a3f02"
-    sha256 cellar: :any_skip_relocation, tahoe:         "3048f7428a061aead97da65df8732700b85ef481ba40c73782c75afc344e82c3"
-    sha256 cellar: :any_skip_relocation, arm64_linux:   "0e465c878845e3e00dab2f9e165ab77d846e92c3d6a212e482c42ff95d884d28"
-    sha256 cellar: :any,                 x86_64_linux:  "8734a9ce7923d7bfc4c7be9b66afa2a609498276d8ee27d664c0d02b337af3a0"
+    root_url "https://github.com/otsge/homebrew-brews2/releases/download/taproom-0.6.2"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "b2c2c7c354f124ee184bf4a7edd10bef48963210c5a37d49e25e819d9322ad95"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "dd65178eda44852b0ec365fc2dba59b8bbdf50bdc903a80bbc833ba988b1e297"
+    sha256 cellar: :any_skip_relocation, sequoia:       "2a835bf7bb91faea8fbdd3669329ff1b0c651ee861fa812f452e6a93add72732"
+    sha256 cellar: :any_skip_relocation, arm64_linux:   "7b5f7e63dcd8e65ddc107bdcd6389116127e3021d77b27575d4a510a96720766"
+    sha256 cellar: :any,                 x86_64_linux:  "1dd206e6ff867d318df427bb12115dfee5b0a3650bb7db6ec0de13406258eef6"
   end
 
   depends_on "go" => :build
