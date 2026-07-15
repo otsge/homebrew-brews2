@@ -1,8 +1,8 @@
 class Forgejo < Formula
   desc "Self-hosted lightweight software forge"
   homepage "https://forgejo.org/"
-  url "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.4/forgejo-src-15.0.4.tar.gz"
-  sha256 "2edac43d70380587dde35d8d8a80fe5791909b9d79d1a564a4d1056bc5261dda"
+  url "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.5/forgejo-src-15.0.5.tar.gz"
+  sha256 "1005e5c6f7340e0cd86a7b3f4c34ae5c353fc34d012b6c6613eecfeea3ec8f99"
   license "GPL-3.0-or-later"
   head "https://codeberg.org/forgejo/forgejo.git", branch: "forgejo"
 
