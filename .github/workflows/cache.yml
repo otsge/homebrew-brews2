@@ -34,7 +34,8 @@ jobs:
   cache:
     strategy:
       matrix:
-        os: [ macos-15, macos-15-intel, macos-26, macos-26-intel ]
+        # os: [ macos-15, macos-15-intel, macos-26, macos-26-intel ]
+        os: [ macos-15, macos-15-intel, macos-26 ]
         include:
           - os: macos-15
             name: macOS 15-arm64
@@ -42,8 +43,8 @@ jobs:
             name: macOS 15-x86_64
           - os: macos-26
             name: macOS 26-arm64
-          - os: macos-26-intel
-            name: macOS 26-x86_64
+        #   - os: macos-26-intel
+        #     name: macOS 26-x86_64
           - os: ubuntu-24.04
             name: Linux x86_64
             container: ghcr.io/homebrew/ubuntu24.04:main
