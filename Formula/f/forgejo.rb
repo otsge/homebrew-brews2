@@ -7,12 +7,12 @@ class Forgejo < Formula
   head "https://codeberg.org/forgejo/forgejo.git", branch: "forgejo"
 
   bottle do
-    root_url "https://github.com/otsge/homebrew-brews2/releases/download/forgejo-16.0.0"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "c21773efe07f4ce151b3948822c1adbb1af3078f84701261e55e8e31ad28e895"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8bf5821847ddaf6eade45cfc14d393aaac5233c9f920017687db6c7ff2b4911d"
-    sha256 cellar: :any_skip_relocation, sequoia:       "0350b50fc248bbbe433320259b0f58b4005409db0d0bad3cef2abcc917dbf693"
-    sha256 cellar: :any,                 arm64_linux:   "49fe2fcd528976478f996b111bd222dcda41968b43444896f2396cb96d188b49"
-    sha256 cellar: :any,                 x86_64_linux:  "359fd8048a88f9dc629338e6d8e00b48440da703e4f31d5459997f977a220329"
+    root_url "https://github.com/otsge/homebrew-brews2/releases/download/forgejo-16.0.1"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "76577e2707f84eb14352fd738d152d6e7f7c74d7e62d193566c160e0eae81a46"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "3bf2890bdff7aaa344d424c0c3668e68112d1b1eafa843861d089d9261202c46"
+    sha256 cellar: :any_skip_relocation, sequoia:       "222244e179bf3608eb1fe3e6f0c302c05860289a0a74802a66aa0da3c61f031f"
+    sha256 cellar: :any,                 arm64_linux:   "9dea9c74d4b3743d684212472b0fea5c15e7ea7801146aff25874dd06425c295"
+    sha256 cellar: :any,                 x86_64_linux:  "3abd5681cb1b6048ac1aad128aa5beae8117c50f19c16e91e6c0ac677dccda26"
   end
 
   depends_on "go" => :build
