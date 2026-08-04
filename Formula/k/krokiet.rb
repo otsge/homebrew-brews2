@@ -7,12 +7,12 @@ class Krokiet < Formula
   head "https://github.com/qarmin/czkawka.git", branch: "master"
 
   bottle do
-    root_url "https://github.com/otsge/homebrew-brews2/releases/download/krokiet-12.0.0"
-    sha256 cellar: :any, arm64_tahoe:   "b75272b8532aac889a59ca9546951307f7473fa0c007ac12ecc50fcaf6bf2e47"
-    sha256 cellar: :any, arm64_sequoia: "a4d4d37ef96d2ee476be3e0b8bc56072cb769b63e71669e7c7436d238580442a"
-    sha256 cellar: :any, sequoia:       "534f3df005ffbed357c6d31a46c440f0b07f2f26ebf4e702bf51d381635cb23d"
-    sha256 cellar: :any, arm64_linux:   "33e58fa336ba2a3f02a54f7a3592a919e7955c6a072e80bc5d15f0c28f5b40c5"
-    sha256 cellar: :any, x86_64_linux:  "daef47485bc4a0a649d1e807928bc8ac5d190f4a0325521544f9865496d511c5"
+    root_url "https://github.com/otsge/homebrew-brews2/releases/download/krokiet-12.0.1"
+    sha256 cellar: :any, arm64_tahoe:   "a88adb6bf9ed59726220e0136e9c852c7299fee74812ae56c289864cc33b267b"
+    sha256 cellar: :any, arm64_sequoia: "84cffc309b33dec136a7ffa916451be16ba4b55e4afecef21c4320caad1c85e5"
+    sha256 cellar: :any, sequoia:       "b7996cc02f697f45c7d2c5113ec00921e0db703df356b833f2eee0b7a0cad329"
+    sha256 cellar: :any, arm64_linux:   "4cf5741722825a4b425154aee50ab47aacb9d6ad0c50fd3dbbddc81c20a4b4d9"
+    sha256 cellar: :any, x86_64_linux:  "392eafe10bf70fa82e64d5ae4594c8518f1f01adf11d999722cf0f21fca6c5dd"
   end
 
   depends_on "rust" => :build
