@@ -23,29 +23,25 @@ class OpensslAT4 < Formula
   keg_only :versioned_formula
 
   depends_on "brotli"
-  depends_on "ca-certificates"
+  depends_on "ca-certificates" => :no_linkage
   depends_on "zstd"
+
+  uses_from_macos "perl" => :build
 
   on_linux do
     depends_on "zlib-ng-compat"
+  end
 
-    resource "Test::Harness" do
-      url "https://cpan.metacpan.org/authors/id/L/LE/LEONT/Test-Harness-3.52.tar.gz"
-      mirror "http://cpan.metacpan.org/authors/id/L/LE/LEONT/Test-Harness-3.52.tar.gz"
-      sha256 "8fe65cfc0261ed3c8a4395f0524286f5719669fe305f9b03b16cf3684d62cd70"
-    end
-
-    resource "Test::More" do
-      url "https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test-Simple-1.302219.tar.gz"
-      mirror "http://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test-Simple-1.302219.tar.gz"
-      sha256 "420600911230de768427f6646758d89b6c07977b565e5b40118e5b8440dbb30b"
-    end
-
-    resource "ExtUtils::MakeMaker" do
-      url "https://cpan.metacpan.org/authors/id/B/BI/BINGOS/ExtUtils-MakeMaker-7.78.tar.gz"
-      mirror "http://cpan.metacpan.org/authors/id/B/BI/BINGOS/ExtUtils-MakeMaker-7.78.tar.gz"
-      sha256 "43b33c20f8d82dba7cc48f8cd702f8fc9811e9d07880886dfd31b7077bd4a3a6"
-    end
+  # Backport commits to avoid test intermittent failures
+  patch do
+    url "https://github.com/openssl/openssl/commit/1e386aab890b52f46641ab18e1a56cabb1b8c47b.patch?full_index=1"
+    sha256 "636f11a33a39536c1cc69426c73863db2b57be636b5977a4076b0995c342ef30"
+    type :backport
+  end
+  patch do
+    url "https://github.com/openssl/openssl/commit/d9f73e36c5fe720b3367e0fc6501683a3f91193a.patch?full_index=1"
+    sha256 "3508588c5e03ba6d3898512f0e8e3aa1f177e243c026884d6c31020359cae59e"
+    type :backport
   end
 
   def configure_args
@@ -72,24 +68,6 @@ class OpensslAT4 < Formula
   end
 
   def install
-    if OS.linux?
-      ENV.prepend_create_path "PERL5LIB", buildpath/"lib/perl5"
-      ENV.prepend_path "PATH", buildpath/"bin"
-
-      %w[ExtUtils::MakeMaker Test::Harness Test::More].each do |r|
-        resource(r).stage do
-          system "perl", "Makefile.PL", "INSTALL_BASE=#{buildpath}"
-          system "make", "PERL5LIB=#{ENV["PERL5LIB"]}", "CC=#{ENV.cc}"
-          system "make", "install"
-        end
-      end
-    end
-
-    # This ensures where Homebrew's Perl is needed the Cellar path isn't
-    # hardcoded into OpenSSL's scripts, causing them to break every Perl update.
-    # Whilst our env points to opt_bin, by default OpenSSL resolves the symlink.
-    ENV["PERL"] = formula_opt_bin("perl")/"perl" if which("perl") == formula_opt_bin("perl")/"perl"
-
     arch_args = []
     if OS.mac?
       arch_args += %W[darwin64-#{Hardware::CPU.arch}-cc enable-ec_nistp_64_gcc_128]
@@ -100,22 +78,17 @@ class OpensslAT4 < Formula
     end
 
     pkgetc.mkpath
-    system "perl", "./Configure", *(configure_args + arch_args)
+    system "perl", "./Configure", *configure_args, *arch_args
     system "make"
     system "make", "install", "MANDIR=#{man}", "MANSUFFIX=ssl"
-    # AF_ALG support isn't always enabled (e.g. some containers), which breaks the tests.
-    # AF_ALG is a kernel feature and failures are unlikely to be issues with the formula.
-    system "make", "HARNESS_JOBS=#{ENV.make_jobs}", "test", "TESTS=-test_afalg"
+    system "make", "HARNESS_JOBS=#{ENV.make_jobs}", "test"
 
     # Prevent `brew` from pruning the `certs` and `private` directories.
     touch %w[certs private].map { |subdir| pkgetc/subdir/".keepme" }
   end
 
   post_install_steps do
-    ln_sf "cert.pem", "cert.pem",
-          source_formula: "ca-certificates",
-          source_base:    :formula_pkgetc,
-          target_base:    :pkgetc
+    symlink "{{etc}}/ca-certificates/cert.pem", "{{pkgetc}}/cert.pem", overwrite: true
   end
 
   def caveats
