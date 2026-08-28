@@ -11,13 +11,12 @@ class OpensslAT4 < Formula
   end
 
   bottle do
-    root_url "https://github.com/otsge/homebrew-brews2/releases/download/openssl@4-4.0.1"
-    rebuild 1
-    sha256 arm64_tahoe:   "110e8da226936201b43a33993a0951d0d11675115e6c56fcc4aa137c7cee68ab"
-    sha256 arm64_sequoia: "c3ac1c166abfc280f9adf6e3a487489a130eff42659cd0dfd4b5b7cfbe30ea02"
-    sha256 sequoia:       "f33a3e5177964a1cf34609391c8a2eb037c1614b81df59710b67b15d963f1dfc"
-    sha256 arm64_linux:   "79d1a414c8355d24ecffe9dd926d8630f6433e30e7e334628a346aaa61a45662"
-    sha256 x86_64_linux:  "452170aae6a2b1091ba08b25a78df94074d14e9771e463f258f854bdfa543b86"
+    root_url "https://github.com/otsge/homebrew-brews2/releases/download/openssl@4-4.0.2"
+    sha256 arm64_tahoe:   "345a06bb3dc12fa4b00a5885ecfa38ba1a533c80eed7b156ebcdbf11426f9e05"
+    sha256 arm64_sequoia: "4b39166f03351e4db4d3147897b66443cc003f81a8c31b4c746a2ec01431ab31"
+    sha256 sequoia:       "8e249c28d4b68ffdc8b9dc12cebabeef0c32023eecc8536e3849b784d86c204f"
+    sha256 arm64_linux:   "3c8acaf88a2692e27e709fecd073888f2cecc2c98c4884bbf8079be4dfda3e8a"
+    sha256 x86_64_linux:  "b5a9a369d89eeda66b11c2f7b22c3423faa16b39d7e5a41b85de5b542fb739fe"
   end
 
   keg_only :versioned_formula
