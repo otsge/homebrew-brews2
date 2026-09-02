@@ -14,12 +14,12 @@ class Curl < Formula
   end
 
   bottle do
-    root_url "https://github.com/otsge/homebrew-brews2/releases/download/curl-8.21.0"
-    sha256 cellar: :any, arm64_tahoe:   "53263a2029499f89bbbf9ed81d38d01919abcd74bde7d430a6ca4246ce72fb56"
-    sha256 cellar: :any, arm64_sequoia: "3c77da5cb0ba8d6d0ee202b4668fb05fba58a3291910b239b54401452e6d9583"
-    sha256 cellar: :any, sequoia:       "6e72cef23539d61e62dbaf522b11c9485e0b71627ec5d4c39040b766c74447c4"
-    sha256 cellar: :any, arm64_linux:   "db3a147035648bb37306b5c3b4ce650929dfea15521e18e31a0b8b9c1a488647"
-    sha256 cellar: :any, x86_64_linux:  "f580dae55efe35cdb218186d0265d10cfc57288ebb1c7f97334fc48e8459547e"
+    root_url "https://github.com/otsge/homebrew-brews2/releases/download/curl-8.22.0"
+    sha256 cellar: :any, arm64_tahoe:   "5147bf21ff6993af5cad189c6ed5e25580f0684d54f0cdd2fa3fa27425c0a566"
+    sha256 cellar: :any, arm64_sequoia: "9ff3dff80d490c4198c36189fca9afc6137f3add8a50bceb123b0913ed21c430"
+    sha256 cellar: :any, sequoia:       "ceb16eac235d032e2ca0a71dd112ae33f8ea387c08af441a414c32daddca8c19"
+    sha256 cellar: :any, arm64_linux:   "5b88e5f61874172825e8dc814cf4f5b426902c995138b62ced580fee24f55523"
+    sha256 cellar: :any, x86_64_linux:  "574021dacaf25b5764f236b45c306a4c17a5d86d396c63d79efe3baba3caebe0"
   end
 
   head do
