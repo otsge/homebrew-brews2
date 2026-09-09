@@ -13,12 +13,11 @@ class CurlQuiche < Formula
   end
 
   bottle do
-    root_url "https://github.com/otsge/homebrew-brews2/releases/download/curl-quiche-8.21.0"
-    sha256 cellar: :any, arm64_tahoe:   "549e0ade6254b3ae65e0015d2b91cd9ef228be5ef769e43812b495c222562431"
-    sha256 cellar: :any, arm64_sequoia: "f32b8db396e9a1edfa2921222e38761bc9ae0d3ac0dff654390ea2af88f5e77a"
-    sha256 cellar: :any, sequoia:       "9c583721e2038901ad838ae9116689aa0499daf44038f31f77429340fd5cf37f"
-    sha256 cellar: :any, arm64_linux:   "c52fd8943f02d370a7329ea620fbfed516dd123ebf779228a277b51c9019ef26"
-    sha256 cellar: :any, x86_64_linux:  "e51f6c113e376a222e83ee05d5eb6cbddea85e10ef9790f5c0b935771f1a651e"
+    root_url "https://github.com/otsge/homebrew-brews2/releases/download/curl-quiche-8.22.0"
+    sha256 cellar: :any, arm64_tahoe:   "57e52bc62aff4a550bac244e7cea26f6920b9f97ea108bf8a7a291cb665d9d4c"
+    sha256 cellar: :any, arm64_sequoia: "e245c788ed853d17d9cd536fa7fd01a536fbbdd04b935aa85367bf7bb0fb4171"
+    sha256 cellar: :any, arm64_linux:   "2dcb2312313451184dfd85632745de945a2ca3ed1b661cedef6da68b51a8cd50"
+    sha256 cellar: :any, x86_64_linux:  "34f6dfe5c1e6f0e79ff49efee631dd248d97b731f660b0b80c12fa5c4e94764b"
   end
 
   head do
