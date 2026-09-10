@@ -1,8 +1,8 @@
 class Krokiet < Formula
   desc "Duplicate file utility"
   homepage "https://github.com/qarmin/czkawka"
-  url "https://github.com/qarmin/czkawka/archive/refs/tags/12.0.1.tar.gz"
-  sha256 "0503f6969a2184fbe2b6b6d786a4ae1b50779f4ce62b57223d1407c70f500587"
+  url "https://github.com/qarmin/czkawka/archive/refs/tags/12.0.2.tar.gz"
+  sha256 "b9e1722ac2625aa0c5861eac6499cafe9e4e7cc0bc9a429c8c3ad6c1e8cd68f1"
   license all_of: ["MIT", "CC-BY-4.0"]
   head "https://github.com/qarmin/czkawka.git", branch: "master"
 
